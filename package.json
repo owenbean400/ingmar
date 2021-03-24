@@ -1,0 +1,23 @@
+{
+  "name": "ingmar",
+  "version": "0.1.0",
+  "description": "Everyone's favorite mute butler for Discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbpudding/ingmar.git"
+  },
+  "keywords": [
+    "discord",
+    "bot"
+  ],
+  "author": "Alexander Hill and Nicholas McDaniel",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/cbpudding/ingmar/issues"
+  },
+  "homepage": "https://github.com/cbpudding/ingmar#readme"
+}

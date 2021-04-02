@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "description": "Everyone's favorite mute butler for Discord",
   "main": "index.js",
+
+  "type": "module",
   "scripts": {
     "test": "node ."
   },

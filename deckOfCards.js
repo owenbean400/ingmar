@@ -68,7 +68,7 @@ var Card = /** @class */ (function () {
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
-function cardImgURL(args) {
+export default function cardImgURL(args) {
   if (args === undefined) {
     return new Card().image;
   }

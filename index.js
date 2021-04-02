@@ -1,6 +1,6 @@
-import { cardImgURL } from "./deckOfCards";
 const Discord = require("discord.js");
 const Filesystem = require("fs");
+const CardBot = require("./deckOfCards");
 
 const fetch = require("fetch").fetchUrl;
 
@@ -43,10 +43,11 @@ function catCommand(msg, args) {
 }
 
 function cardCommand(msg, args) {
+  let data = CardBot.cardImgURL(args);
   let embed = new Discord.MessageEmbed()
     .setColor(config.color)
-    .setTitle("Your Card")
-    .setImage(cardImgURL(args));
+    .setTitle(data.message)
+    .setImage(data.image);
   msg.reply(embed);
 }
 

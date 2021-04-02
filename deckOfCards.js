@@ -1,58 +1,44 @@
-type CardNumber = "A" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "0" | "J" | "Q" | "K" | "X";
-type CardSuit = "H" | "D" | "S" | "C" | "X";
-type CardColor = "red" | "black";
-interface CardInfo {
-    suit: CardSuit | undefined,
-    num: CardNumber | undefined
-}
-interface DiscordMessageInfo {
-    image: string,
-    message: string,
-    color: CardColor,
-}
-
-class Card {
-    suit: CardSuit;
-    number: CardNumber;
-    image: string;
-    color: CardColor;
-    message: string;
+"use strict";
+exports.__esModule = true;
+exports.cardImgURL = void 0;
+var Card = /** @class */ (function () {
     /**
-     * Card class that hold card information and image url 
-     * 
+     * Card class that hold card information and image url
+     *
      * @param suit suit on the card
      * @param number number/symbol on the card
      */
-    constructor(suit?: CardSuit | undefined, number?: CardNumber | undefined) {
+    function Card(suit, number) {
         this.suit = (suit === undefined) ? this.randomSuit() : suit;
         this.number = (number === undefined) ? this.randomNumber() : number;
-        this.calcURLImage()
+        this.calcURLImage();
         this.color = this.suitToColor(this.suit);
-        if(this.number === "X" || this.suit === "X") {
-            this.message = "Joker"
-        } else {
+        if (this.number === "X" || this.suit === "X") {
+            this.message = "Joker";
+        }
+        else {
             this.message = this.cardInfoToString(this.number) + " of " + this.cardInfoToString(this.suit);
         }
     }
     /**
      * Set the image url
      */
-    calcURLImage() {
-        if(this.number === "X" || this.suit === "X") {
+    Card.prototype.calcURLImage = function () {
+        if (this.number === "X" || this.suit === "X") {
             this.image = "https://deckofcardsapi.com/static/img/XX.png";
         }
         else {
             this.image = "https://deckofcardsapi.com/static/img/" + this.number + this.suit + ".png";
-        } 
-    }
+        }
+    };
     /**
      * Randomize the suit on card
-     * 
+     *
      * @returns suit on the card
      */
-    randomSuit(): CardSuit {
-        let randomNum: number = getRandomInt(4);
-        switch(randomNum) {
+    Card.prototype.randomSuit = function () {
+        var randomNum = getRandomInt(4);
+        switch (randomNum) {
             case 0:
                 return "H";
             case 1:
@@ -64,15 +50,15 @@ class Card {
             default:
                 return "H";
         }
-    }
+    };
     /**
      * Randomize the number/symbol on card
-     * 
+     *
      * @returns number/symbol on the card
      */
-    randomNumber(): CardNumber {
-        let randomNum: number = getRandomInt(13) + 1;
-        switch(randomNum) {
+    Card.prototype.randomNumber = function () {
+        var randomNum = getRandomInt(13) + 1;
+        switch (randomNum) {
             case 1:
                 return "A";
             case 2:
@@ -100,9 +86,9 @@ class Card {
             case 13:
                 return "K";
         }
-    }
-    suitToColor(suit: CardSuit): CardColor {
-        switch(suit) {
+    };
+    Card.prototype.suitToColor = function (suit) {
+        switch (suit) {
             case "H":
             case "D":
                 return "red";
@@ -111,9 +97,9 @@ class Card {
             case "X":
                 return "black";
         }
-    }
-    cardInfoToString(str: CardNumber | CardSuit): string {
-        switch(str) {
+    };
+    Card.prototype.cardInfoToString = function (str) {
+        switch (str) {
             case "A":
                 return "Ace";
             case "2":
@@ -153,59 +139,60 @@ class Card {
             default:
                 return "";
         }
-    }
-    setCard(suit?: CardSuit | undefined, number?: CardNumber | undefined) {
+    };
+    Card.prototype.setCard = function (suit, number) {
         this.suit = (suit === undefined) ? this.randomSuit() : suit;
         this.number = (number === undefined) ? this.randomNumber() : number;
-        this.calcURLImage()
+        this.calcURLImage();
         this.color = this.suitToColor(this.suit);
-        if(this.number === "X" || this.suit === "X") {
-            this.message = "Joker"
-        } else {
+        if (this.number === "X" || this.suit === "X") {
+            this.message = "Joker";
+        }
+        else {
             this.message = this.cardInfoToString(this.number) + " of " + this.cardInfoToString(this.suit);
         }
-    }
-}
-
+    };
+    return Card;
+}());
 /**
  * Create a card class from a set of strings and return the url image
- * 
+ *
  * @param args argument of string with the first args as "Card"
  * @returns url for the card image
  */
-function cardImgURL(args?: string[] | undefined): DiscordMessageInfo {
-    let card: Card;
-    if(args === undefined) {
+function cardImgURL(args) {
+    var card;
+    if (args === undefined) {
         card = new Card();
     }
     else {
         args[0] = "";
-        let cardInfoStr = args.join('');
-        let cardInfoObj = strToCardInfo(cardInfoStr);
+        var cardInfoStr = args.join('');
+        var cardInfoObj = strToCardInfo(cardInfoStr);
         card = new Card(cardInfoObj.suit, cardInfoObj.num);
     }
     return {
         image: card.image,
         message: card.message,
-        color: card.color,
+        color: card.color
     };
 }
-
+exports.cardImgURL = cardImgURL;
 /**
  * Changes a string to an object of card number and card suit
- * 
+ *
  * @param str string with card information
  * @returns object of card number and card suit
  */
-function strToCardInfo(str: string): CardInfo {
+function strToCardInfo(str) {
     str = str.toUpperCase();
-    let stringSuitChange = {
+    var stringSuitChange = {
         "HEART": "H",
         "SPADE": "S",
         "CLUB": "C",
-        "DIAMOND": "D",
-    }
-    let stringNumberChange = {
+        "DIAMOND": "D"
+    };
+    var stringNumberChange = {
         "ONE": "1",
         "TWO": "2",
         "THREE": "3",
@@ -224,44 +211,47 @@ function strToCardInfo(str: string): CardInfo {
         "11": "J",
         "12": "Q",
         "13": "K"
-    }
-    let suitChange: CardSuit[] = ["H", "S", "C", "D", "X"];
-    let numChange: CardNumber[] = ["0", "2", "3", "4", "5", "6", "7", "8", "9", "A", "J", "Q", "K", "X"];
-    let newStr: CardInfo = {
+    };
+    var suitChange = ["H", "S", "C", "D", "X"];
+    var numChange = ["0", "2", "3", "4", "5", "6", "7", "8", "9", "A", "J", "Q", "K", "X"];
+    var newStr = {
         suit: undefined,
         num: undefined
     };
-    if(str.search("RANDOM") !== -1) {
+    if (str.search("RANDOM") !== -1) {
         return newStr;
-    } else if(str.search("JOKER") !== -1) {
+    }
+    else if (str.search("JOKER") !== -1) {
         newStr.suit = "X";
         newStr.num = "X";
         return newStr;
     }
-    for(let i = 0; i < Object.keys(stringSuitChange).length; i++) {
-        if(str.search(Object.keys(stringSuitChange)[i]) !== -1 && newStr.suit === undefined) {
+    for (var i = 0; i < Object.keys(stringSuitChange).length; i++) {
+        if (str.search(Object.keys(stringSuitChange)[i]) !== -1 && newStr.suit === undefined) {
             newStr.suit = stringSuitChange[Object.keys(stringSuitChange)[i]];
             str = str.replace(Object.keys(stringSuitChange)[i], "");
         }
     }
-    for(let i = 0; i < Object.keys(stringNumberChange).length; i++) {
-        if(str.search(Object.keys(stringNumberChange)[i]) !== -1 && newStr.num === undefined) {
+    for (var i = 0; i < Object.keys(stringNumberChange).length; i++) {
+        if (str.search(Object.keys(stringNumberChange)[i]) !== -1 && newStr.num === undefined) {
             newStr.num = stringNumberChange[Object.keys(stringNumberChange)[i]];
             str = str.replace(Object.keys(stringNumberChange)[i], "");
         }
     }
-    if(str.search("1") !== -1) {
+    if (str.search("1") !== -1) {
         newStr.num = "A";
         str.replace("1", "");
     }
-    for(let chara of suitChange) {
-        if(str.search(chara) !== -1 && newStr.suit === undefined) {
+    for (var _i = 0, suitChange_1 = suitChange; _i < suitChange_1.length; _i++) {
+        var chara = suitChange_1[_i];
+        if (str.search(chara) !== -1 && newStr.suit === undefined) {
             newStr.suit = chara;
             str = str.replace(chara, "");
         }
     }
-    for(let chara of numChange) {
-        if(str.search(chara) !== -1 && newStr.num === undefined) {
+    for (var _a = 0, numChange_1 = numChange; _a < numChange_1.length; _a++) {
+        var chara = numChange_1[_a];
+        if (str.search(chara) !== -1 && newStr.num === undefined) {
             newStr.num = chara;
             str = str.replace(chara, "");
         }
@@ -269,15 +259,12 @@ function strToCardInfo(str: string): CardInfo {
     console.log(str);
     return newStr;
 }
-
 /**
  * Creates a random integer
- * 
+ *
  * @param max max number amount of numbers
  * @returns random interger from 0 to max - 1
  */
-function getRandomInt(max): number {
+function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
-
-export { cardImgURL };

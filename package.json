@@ -3,12 +3,9 @@
   "version": "0.1.0",
   "description": "Everyone's favorite mute butler for Discord",
   "main": "index.js",
-
-  "type": "module",
   "scripts": {
     "test": "node ."
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cbpudding/ingmar.git"
@@ -26,5 +23,8 @@
   "dependencies": {
     "discord.js": "^12.5.2",
     "fetch": "^1.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
   }
 }

@@ -9,11 +9,20 @@ class Card {
     suit: CardSuit;
     number: CardNumber;
     image: string;
+    /**
+     * Card class that hold card information and image url 
+     * 
+     * @param suit suit on the card
+     * @param number number/symbol on the card
+     */
     constructor(suit?: CardSuit | undefined, number?: CardNumber | undefined) {
         this.suit = (suit === undefined) ? this.randomSuit() : suit;
         this.number = (number === undefined) ? this.randomNumber() : number;
         this.calcURLImage()
     }
+    /**
+     * Set the image url
+     */
     calcURLImage() {
         if(this.number === "X") {
             this.image = "https://deckofcardsapi.com/static/img/XX.png";
@@ -22,6 +31,11 @@ class Card {
             this.image = "https://deckofcardsapi.com/static/img/" + this.number + this.suit + ".png";
         } 
     }
+    /**
+     * Randomize the suit on card
+     * 
+     * @returns suit on the card
+     */
     randomSuit(): CardSuit {
         let randomNum: number = getRandomInt(4);
         switch(randomNum) {
@@ -37,6 +51,11 @@ class Card {
                 return "H";
         }
     }
+    /**
+     * Randomize the number/symbol on card
+     * 
+     * @returns number/symbol on the card
+     */
     randomNumber(): CardNumber {
         let randomNum: number = getRandomInt(13) + 1;
         switch(randomNum) {
@@ -70,10 +89,22 @@ class Card {
     }
 }
 
+/**
+ * Creates a random integer
+ * 
+ * @param max max number amount of numbers
+ * @returns random interger from 0 to max - 1
+ */
 function getRandomInt(max): number {
     return Math.floor(Math.random() * max);
 }
 
+/**
+ * Create a card class from a set of strings and return the url image
+ * 
+ * @param args argument of string with the first args as "Card"
+ * @returns url for the card image
+ */
 export default function cardImgURL(args?: string[] | undefined): string {
     if(args === undefined) {
         return new Card().image;
@@ -84,6 +115,12 @@ export default function cardImgURL(args?: string[] | undefined): string {
     return new Card(cardInfoObj.suit, cardInfoObj.num).image;
 }
 
+/**
+ * Changes a string to an object of card number and card suit
+ * 
+ * @param str string with card information
+ * @returns object of card number and card suit
+ */
 function strToCardInfo(str: string): CardInfo {
     str = str.toUpperCase();
     let stringSuitChange = {

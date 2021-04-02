@@ -84,17 +84,6 @@ export default function cardImgURL(args?: string[] | undefined): string {
     return new Card(cardInfoObj.suit, cardInfoObj.num).image;
 }
 
-console.log(cardImgURL());
-console.log(cardImgURL(["CARD"]));
-console.log(cardImgURL(["CARD", "10H"]));
-console.log(cardImgURL(["CARD","CLUBK"]));
-console.log(cardImgURL(["CARD","HEARTK"]));
-console.log(cardImgURL(["CARD","HK"]));
-console.log(cardImgURL(["CARD", "HEarT", "4"]));
-console.log(cardImgURL(["CARD", "ACE", "c"]));
-console.log(cardImgURL(["CARD", "JOKER", "c", "   wdawdad d31131"]));
-console.log(cardImgURL(["CARD", "3X"]));
-
 function strToCardInfo(str: string): CardInfo {
     str = str.toUpperCase();
     let stringSuitChange = {

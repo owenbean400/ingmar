@@ -1,4 +1,4 @@
-import { cardImgURL } from "./deckOfCards.js";
+import { cardImgURL } from "./deckOfCards";
 const Discord = require("discord.js");
 const Filesystem = require("fs");
 
